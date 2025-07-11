@@ -1,3 +1,4 @@
-com\ejemplo\PedidoServiceMockTest.class
 com\ejemplo\AppTest.class
 com\ejemplo\PedidoServiceTest.class
+com\ejemplo\DescuentoRepositoryTest.class
+com\ejemplo\PedidoServiceMockTest.class
