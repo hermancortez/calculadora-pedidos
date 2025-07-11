@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.ejemplo</groupId>
+  <artifactId>calculadora-pedidos</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>calculadora-pedidos</name>
+  <url>http://maven.apache.org</url>
+
+  <!-- ==================================================================== -->
+  <!-- PROPIEDADES DEL PROYECTO                                             -->
+  <!-- Se establecen la codificación y la versión de Java para la compilación -->
+  <!-- ==================================================================== -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <!--
+      Establece la versión de Java para la compilación.
+      Dado que tienes Java 17 y 21 instalados, puedes usar una de estas.
+      Si tu código solo es compatible con Java 8, mantén 1.8.
+      Para este ejemplo, lo actualizaremos a Java 17 para eliminar las advertencias de "obsolete".
+    -->
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <!-- Versiones de dependencias para mantener la consistencia -->
+    <junit.version>3.8.1</junit.version> <!-- Mantener JUnit 3.8.1 para tu AppTest.java actual -->
+    <junit.jupiter.version>5.10.0</junit.jupiter.version> <!-- Versión de JUnit 5 si la necesitas más adelante -->
+    <mockito.version>5.12.0</mockito.version>
+  </properties>
+
+  <dependencies>
+    <!--
+      Dependencia de JUnit 3.x
+      Tu AppTest.java parece estar escrito para JUnit 3 (TestCase, assertTrue).
+      Mantendremos esta dependencia para que compile.
+    -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!--
+      Dependencias de JUnit 5 (JUnit Jupiter API y Engine)
+      Las tienes declaradas, pero si AppTest.java es de JUnit 3, no se usarán.
+      Si no tienes otros tests de JUnit 5, podrías eliminarlas temporalmente para simplificar.
+      Las mantendremos por ahora, pero ten en cuenta que no se usarán para AppTest.java.
+    -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Dependencia de Mockito (ya la tenías) -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <!-- ==================================================================== -->
+  <!-- CONFIGURACIÓN DE PLUGINS                                             -->
+  <!-- Se configura el plugin de compilación para usar la versión de Java deseada -->
+  <!-- ==================================================================== -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version> <!-- Usar una versión reciente del plugin -->
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+          <compilerArgs>
+            <!-- Suprime las advertencias sobre opciones obsoletas si mantienes Java 8 -->
+            <!-- <arg>-Xlint:-options</arg> -->
+          </compilerArgs>
+        </configuration>
+      </plugin>
+      <!--
+        Plugin para ejecutar tests.
+        Si usas JUnit 5, es posible que necesites el Surefire Plugin configurado para JUnit 5.
+        Pero si solo usas JUnit 3, la configuración por defecto de Surefire suele bastar.
+        Lo incluimos explícitamente para mayor control.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version> <!-- Usar una versión reciente -->
+        <configuration>
+          <!-- Si solo tienes tests de JUnit 3, no necesitas configuraciones especiales aquí. -->
+          <!-- Si en el futuro migras a JUnit 5, podrías necesitar: -->
+          <!-- <argLine>@{argLine}</argLine> -->
+          <!-- <properties>
+            <property>
+              <name>junit.platform.unique-id</name>
+              <value>true</value>
+            </property>
+          </properties> -->
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
